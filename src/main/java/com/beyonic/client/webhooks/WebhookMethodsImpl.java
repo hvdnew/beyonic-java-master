@@ -10,7 +10,7 @@ import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
 import com.beyonic.model.enums.WebhookEvents;
 import com.beyonic.model.payment.PaymentResponse;
-import com.beyonic.model.wehbooks.Webhook;
+import com.beyonic.model.webhooks.Webhook;
 import com.beyonic.util.BeyonicConstants;
 import com.beyonic.util.ConnectionUtil;
 import com.beyonic.util.RequestOptions;

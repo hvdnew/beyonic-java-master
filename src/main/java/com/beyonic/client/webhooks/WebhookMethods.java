@@ -7,7 +7,7 @@ import com.beyonic.exception.APIConnectionException;
 import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
 import com.beyonic.model.enums.WebhookEvents;
-import com.beyonic.model.wehbooks.Webhook;
+import com.beyonic.model.webhooks.Webhook;
 
 
 /**

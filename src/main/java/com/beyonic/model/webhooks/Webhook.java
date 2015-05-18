@@ -1,4 +1,4 @@
-package com.beyonic.model.wehbooks;
+package com.beyonic.model.webhooks;
 
 import com.beyonic.model.enums.WebhookEvents;
 
