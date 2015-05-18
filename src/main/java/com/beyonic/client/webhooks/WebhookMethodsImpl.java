@@ -1,4 +1,4 @@
-package com.beyonic.client.wehbooks;
+package com.beyonic.client.webhooks;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

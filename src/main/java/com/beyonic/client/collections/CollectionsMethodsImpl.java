@@ -15,7 +15,11 @@ import com.beyonic.util.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
+/**
+ * 
+ * @author Harshvardhan Dadhich
+ *
+ */
 public class CollectionsMethodsImpl implements CollectionsMethods {
 
 

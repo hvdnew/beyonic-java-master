@@ -1,4 +1,4 @@
-package com.beyonic.client.wehbooks;
+package com.beyonic.client.webhooks;
 
 import java.util.List;
 import java.util.Map;
