@@ -7,6 +7,7 @@ import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
 import com.beyonic.model.payment.PaymentCreate;
 import com.beyonic.model.payment.PaymentResponse;
+import com.beyonic.util.BeyonicConstants;
 
 /**
  * 
@@ -15,7 +16,7 @@ import com.beyonic.model.payment.PaymentResponse;
  */
 public interface PaymentsMethods {
 	
-	public static final String PAYMENT_API_ENDPOINT = "https://staging.beyonic.com/api/payments";
+	public static final String PAYMENT_API_ENDPOINT = BeyonicConstants.BASE_URL+BeyonicConstants.getVersion()+"/payments";
 	
 	
 	public PaymentResponse create(PaymentCreate paymentInput)throws AuthenticationException, InvalidRequestException, APIConnectionException ;

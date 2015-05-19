@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.beyonic.client.collections.CollectionsMethodsImpl;
 import com.beyonic.exception.APIConnectionException;
 import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
@@ -23,7 +24,7 @@ import com.google.gson.reflect.TypeToken;
  * @author Harshvardhan Dadhich
  *
  */
-public class CollectionRequetsMethodsImpl implements CollectionRequestMethods{
+public class CollectionRequestsMethodsImpl implements CollectionRequestMethods{
 
 	public static final Gson GSON = new GsonBuilder().create();
 	
@@ -97,20 +98,6 @@ public class CollectionRequetsMethodsImpl implements CollectionRequestMethods{
 		return toRet;
 	}
 
-	
-	public static void main(String[] args) throws APIConnectionException, AuthenticationException, InvalidRequestException{
-		
-		CollectionRequetsMethodsImpl collectionRequetsMethodsImpl = new CollectionRequetsMethodsImpl();
-		
-		//collectionRequetsMethodsImpl.create("+918976466457", new BigDecimal(500.0), "USD");
-		
-		//collectionRequetsMethodsImpl.read("13");
-		
-		System.out.println(collectionRequetsMethodsImpl.list().size());
-		
-		
-		
-	}
 	
 	
 }

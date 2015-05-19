@@ -2,6 +2,7 @@ package com.beyonic.client.collections;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,18 +34,21 @@ public class CollectionsMethodsImpl implements CollectionsMethods {
 		String url = COLLECTIONS_API_ENDPOINT+"/"+id;
 
 		String response = null;
+		CollectionResponse collection = null;
+		
+		
 		try {
 			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET,
 					url, options);
+			System.out.println("Response: " + response);
+			
+		    Type stringStringMap = new TypeToken<CollectionResponse>() {}.getType();
+		    collection = GSON.fromJson(response, stringStringMap);
+			
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response: " + response);
-		
-		CollectionResponse collection = null;
-	    Type stringStringMap = new TypeToken<CollectionResponse>() {}.getType();
-	    collection = GSON.fromJson(response, stringStringMap);
 		
 
 		return collection;
@@ -57,18 +61,22 @@ public class CollectionsMethodsImpl implements CollectionsMethods {
 		String url = COLLECTIONS_API_ENDPOINT;
 
 		String response = null;
+		List<CollectionResponse> toRet  = null;
+		
 		try {
 			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET,
 					url, options);
+			
+			System.out.println("Response: " + response);
+		    Type stringStringMap = new TypeToken<List<CollectionResponse>>() {}.getType();
+		    toRet = GSON.fromJson(response, stringStringMap);
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			e.printStackTrace();
+			toRet = null;
 		}
-		System.out.println("Response: " + response);
 		
-		List<CollectionResponse> toRet  = null;
-	    Type stringStringMap = new TypeToken<List<CollectionResponse>>() {}.getType();
-	    toRet = GSON.fromJson(response, stringStringMap);
+		
 		
 		return toRet;
 	}
@@ -86,21 +94,21 @@ public class CollectionsMethodsImpl implements CollectionsMethods {
 		params.put("remote_transaction_id", remote_transaction_id);
 		
 		options.setParams(params);
-		
+		List<CollectionResponse> toRet = null;
 		
 		String response = null;
 		try {
 			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET,
 					url, options);
+			System.out.println("Response: " + response);
+			
+		    Type stringStringMap = new TypeToken<List<CollectionResponse>>() {}.getType();
+		    toRet = GSON.fromJson(response, stringStringMap);
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response: " + response);
 		
-		List<CollectionResponse> toRet = null;
-	    Type stringStringMap = new TypeToken<List<CollectionResponse>>() {}.getType();
-	    toRet = GSON.fromJson(response, stringStringMap);
 		
 
 		return toRet;
@@ -124,45 +132,25 @@ public class CollectionsMethodsImpl implements CollectionsMethods {
 		
 		
 		String response = null;
+		List<CollectionResponse> toRet = null;
+		
+		
+		
 		try {
 			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET,
 					url, options);
+			System.out.println("Response: " + response);
+			
+		    Type stringStringMap = new TypeToken<List<CollectionResponse>>() {}.getType();
+		    toRet = GSON.fromJson(response, stringStringMap);
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response: " + response);
 		
-		List<CollectionResponse> toRet = null;
-	    Type stringStringMap = new TypeToken<List<CollectionResponse>>() {}.getType();
-	    toRet = GSON.fromJson(response, stringStringMap);
 		
 
 		return toRet;
-	}
-
-	
-	
-
-	
-	
-	public static void main(String[] args){
-		
-		CollectionsMethodsImpl collectionsMethodsImpl = new CollectionsMethodsImpl();
-		//collectionsMethodsImpl.read("2");
-		
-		//List<CollectionResponse> resp = collectionsMethodsImpl.list();
-		//System.out.println(resp.size());
-		
-		
-		//List<CollectionResponse> resp = collectionsMethodsImpl.search("+254727843600", "12132");
-		//System.out.println(resp.size());
-		
-		
-		List<CollectionResponse> resp = collectionsMethodsImpl.claim("+254727843600", "12132", true, new BigDecimal(5.0));
-		System.out.println(resp.size());
-		
-		
 	}
 
 	

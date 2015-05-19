@@ -10,17 +10,26 @@ import java.util.Map;
  */
 public class BeyonicConstants {
 
+	// not used, preserved for future
 	public static final String PROPERTIES_FILE_NAME = "beyonic.properties";
 	public static final String PROP_DIR = "beyonic";
 	public static final String USER_HOME = "user.home";
-	public static final String CLIENT_API_VERSION = "v1";
-	public static final String CLIENT_API_KEY = "312726d359422c52d986e6a67f713cdf42eb9f96";
-	public static final String HOST_NAME = "staging.beyonic.com";
 	public static final boolean verifySSL = true;
-
+	// not used, preserved for future
+	
+	// Used
+	public static String CLIENT_API_VERSION;
+	public static final String CLIENT_API_DEFAULT_VERSION = "v1";
+	public static String CLIENT_API_KEY = null;//"312726d359422c52d986e6a67f713cdf42eb9f96";
+	
+	public static final String BASE_URL = "https://staging.beyonic.com/api"; // once changed here, will be reflected everywhere
 	public static final String KEYSTORE_LOCATION = "C:/Users/Owner/.keystore";
 	public static final String KEYSTORE_SECRET = "changeit";
 
+	public static String getVersion(){
+		return (CLIENT_API_VERSION==null)?"/"+CLIENT_API_DEFAULT_VERSION:"/"+CLIENT_API_VERSION;
+	}
+	
 	public static void setEnvironment() {
 		System.setProperty("javax.net.ssl.trustStore", KEYSTORE_LOCATION);
 		System.setProperty("javax.net.ssl.trustStorePassword", KEYSTORE_SECRET);

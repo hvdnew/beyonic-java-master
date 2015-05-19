@@ -8,6 +8,7 @@ import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
 import com.beyonic.model.enums.WebhookEvents;
 import com.beyonic.model.webhooks.Webhook;
+import com.beyonic.util.BeyonicConstants;
 
 
 /**
@@ -16,7 +17,7 @@ import com.beyonic.model.webhooks.Webhook;
  *
  */
 public interface WebhookMethods {
-	public static final String WEBHOOK_API_ENDPOINT = "https://staging.beyonic.com/api/webhooks";
+	public static final String WEBHOOK_API_ENDPOINT = BeyonicConstants.BASE_URL+BeyonicConstants.getVersion()+"/webhooks";
 	
 	
 	public Webhook create(WebhookEvents event, String target) throws APIConnectionException, AuthenticationException, InvalidRequestException;

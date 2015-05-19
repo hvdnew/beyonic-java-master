@@ -64,20 +64,22 @@ public class PaymentsMethodsImpl implements PaymentsMethods {
 		RequestOptions options = RequestOptions.getDefault();
 
 		String url = PAYMENT_API_ENDPOINT+"/"+id;
-
 		String response = null;
+		PaymentResponse payment = null;
+		
+		
 		try {
 			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET,
 					url, options);
+			System.out.println("Response: " + response);
+			
+		    Type stringStringMap = new TypeToken<PaymentResponse>() {}.getType();
+		    payment = GSON.fromJson(response, stringStringMap);
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response: " + response);
 		
-		PaymentResponse payment = null;
-	    Type stringStringMap = new TypeToken<PaymentResponse>() {}.getType();
-	    payment = GSON.fromJson(response, stringStringMap);
 		
 
 		return payment;
@@ -96,39 +98,25 @@ public class PaymentsMethodsImpl implements PaymentsMethods {
 		String url = PAYMENT_API_ENDPOINT;
 		
 		String response = null;
+		List<PaymentResponse> paymentList = null;
 		try {
+			
 			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET, url, options);
+			
+			System.out.println("Response: "+response);
+			
+			
+		    Type stringStringMap = new TypeToken<List<PaymentResponse>>() {}.getType();
+		    paymentList = GSON.fromJson(response, stringStringMap);
+			
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response: "+response);
 		
-		List<PaymentResponse> paymentList = null;
-	    Type stringStringMap = new TypeToken<List<PaymentResponse>>() {}.getType();
-	    paymentList = GSON.fromJson(response, stringStringMap);
 		
 		return paymentList;
 	}
 
-	public static void main(String[] args) throws APIConnectionException, AuthenticationException, InvalidRequestException {
-
-		PaymentsMethodsImpl paymentsMethodsImpl = new PaymentsMethodsImpl();
-		// tested -- working
-		//List<PaymentResponse> paymentList = paymentsMethodsImpl.list();
-		//System.out.println("Total payment objects found: "+paymentList.size());
-		
-		
-		// tested -- working
-		//PaymentResponse payment = paymentsMethodsImpl.read("148");
-		
-		PaymentCreate paymentCreate = new PaymentCreate("+918976466457", new BigDecimal(100.00), "USD", "ThisisadummmypaymentcreatedbyrestclientdevelopedbyHarsh");
-		PaymentResponse payment = paymentsMethodsImpl.create(paymentCreate);
-		
-		//System.out.println(": "+GSON.toJson(paymentCreate));
-		
-		System.out.println("ID: "+payment.getId());
-		
-	}
 
 }

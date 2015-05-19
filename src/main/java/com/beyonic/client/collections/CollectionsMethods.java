@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.beyonic.model.collections.CollectionResponse;
+import com.beyonic.util.BeyonicConstants;
 
 /**
  * 
@@ -12,7 +13,7 @@ import com.beyonic.model.collections.CollectionResponse;
  */
 public interface CollectionsMethods {
 	
-	public static final String COLLECTIONS_API_ENDPOINT = "https://staging.beyonic.com/api/collections";
+	public static final String COLLECTIONS_API_ENDPOINT = BeyonicConstants.BASE_URL+BeyonicConstants.getVersion()+"/collections";
 	
 	
 	public CollectionResponse read(String id);
