@@ -10,12 +10,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import com.beyonic.exception.APIConnectionException;
 import com.beyonic.exception.AuthenticationException;
@@ -35,8 +42,40 @@ public abstract class ConnectionUtil {
 
 
 	private static HttpsURLConnection createConnection(
-			String url, RequestOptions options) throws IOException {
+			String url, RequestOptions options) throws Exception {
 
+		// Create a trust manager that does not validate certificate chains
+        /*TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+				@Override
+				public void checkClientTrusted(X509Certificate[] arg0,
+						String arg1) throws CertificateException {
+				}
+				@Override
+				public void checkServerTrusted(X509Certificate[] arg0,
+						String arg1) throws CertificateException {
+				}
+            }
+        };
+ 
+        // Install the all-trusting trust manager
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+ 
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+ 
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);*/
+		
+		
 		HttpsURLConnection con = (HttpsURLConnection)new URL(url).openConnection();
 		con.setConnectTimeout(30 * 1000);
 		con.setReadTimeout(80 * 1000);
@@ -61,29 +100,29 @@ public abstract class ConnectionUtil {
 
 	
 	private static java.net.HttpURLConnection createGetConnection(
-			String url, String query, RequestOptions options) throws IOException, APIConnectionException {
+			String url, String query, RequestOptions options) throws Exception {
 		
 		String getURL = formatURL(url, query);
-		
 		HttpsURLConnection con = createConnection(getURL, options);
 		con.setRequestMethod("GET");
-		
 		
 		return con;
 	}
 
+	
 	@SuppressWarnings("unused")
-	private static void checkSSLCert(java.net.HttpURLConnection hconn) throws IOException, APIConnectionException {
+	private static void checkSSLCert(HttpsURLConnection hconn) throws IOException, APIConnectionException {
 		if (!BeyonicConstants.verifySSL) {
 			return;
 		}
 
-		javax.net.ssl.HttpsURLConnection conn = (javax.net.ssl.HttpsURLConnection) hconn;
 		
-		conn.connect();
+		hconn.connect();
+		
+		Certificate[] certs = hconn.getServerCertificates();
 
-		Certificate[] certs = conn.getServerCertificates();
-
+		System.out.println(certs);
+		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-1");
 
@@ -91,6 +130,8 @@ public abstract class ConnectionUtil {
 			md.update(der);
 			byte[] digest = md.digest();
 
+			System.out.println(digest);
+			
 			// verify the certificate here, this must be the same as the site cert
 			byte[] revokedCertDigest = {(byte) 0x05, (byte) 0xc0, (byte) 0xb3, (byte) 0x64, (byte) 0x36, (byte) 0x94, (byte) 0x47, (byte) 0x0a, (byte) 0x88, (byte) 0x8c, (byte) 0x6e, (byte) 0x7f, (byte) 0xeb, (byte) 0x5c, (byte) 0x9e, (byte) 0x24, (byte) 0xe8, (byte) 0x23, (byte) 0xdc, (byte) 0x53};
 
@@ -106,7 +147,7 @@ public abstract class ConnectionUtil {
 	}
 	
 	private static java.net.HttpURLConnection createPostConnection(
-			String url, String query, RequestOptions options) throws IOException, APIConnectionException {
+			String url, String query, RequestOptions options) throws Exception {
 		
 		//String getURL = formatURL(url, query);
 		//System.out.println("getURL: "+getURL);
@@ -135,7 +176,7 @@ public abstract class ConnectionUtil {
 	}
 
 	private static java.net.HttpURLConnection createPutConnection(
-			String url, String query, RequestOptions options) throws IOException, APIConnectionException {
+			String url, String query, RequestOptions options) throws Exception {
 		
 		String getURL = formatURL(url, query);
 		//System.out.println("getURL: "+getURL);
@@ -164,7 +205,7 @@ public abstract class ConnectionUtil {
 	}
 	
 	private static java.net.HttpURLConnection createDeleteConnection(
-			String url, String query, RequestOptions options) throws IOException, APIConnectionException {
+			String url, String query, RequestOptions options) throws Exception {
 		String deleteUrl = formatURL(url, query);
 		java.net.HttpURLConnection conn = createConnection(
 				deleteUrl, options);
@@ -219,7 +260,7 @@ public abstract class ConnectionUtil {
 	}
 
 	private static String makeConnectionRequest(RequestMethod method, String url, String query,
-			RequestOptions options) throws APIConnectionException, InvalidRequestException, AuthenticationException {
+			RequestOptions options) throws Exception {
 		java.net.HttpURLConnection conn = null;
 		try {
 			switch (method) {
@@ -250,6 +291,7 @@ public abstract class ConnectionUtil {
 			return rBody;
 		} catch (IOException e) {
 			try {
+				if(conn!=null)
 				System.out.println("Error Stream: "+getResponseBody(conn.getErrorStream()));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -310,7 +352,7 @@ public abstract class ConnectionUtil {
 
 		
 
-		BeyonicConstants.setEnvironment();
+		//BeyonicConstants.setEnvironment();
 		
 		String query;
 
@@ -320,12 +362,14 @@ public abstract class ConnectionUtil {
 			throw new InvalidRequestException("Unable to encode parameters to "	+ CHARSET+"."+ e.getMessage());
 		}
 
-		String response;
+		String response = null;
 		try {
 			// HTTPSURLConnection verifies SSL cert by default
 			response = makeConnectionRequest(method, url, query, options);
 		} catch (ClassCastException ce) {
 				throw ce;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return response;

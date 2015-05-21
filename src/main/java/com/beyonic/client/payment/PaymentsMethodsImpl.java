@@ -118,5 +118,67 @@ public class PaymentsMethodsImpl implements PaymentsMethods {
 		return paymentList;
 	}
 
+	
+	
+	public void listAcc() {
+		
+		RequestOptions options = RequestOptions.getDefault();
+		
+		
+		Map<String, String> headers = new HashMap<String, String>();
+		String apiVersion = "2014-11-20";
+		headers.put("Accept-Charset", "UTF-8");
+		headers.put("Accept", "application/json");
+		headers.put("User-Agent",
+				String.format("Stripe/v1 JavaBindings/%s", apiVersion));
+
+		headers.put("Authorization", String.format("Bearer %s", "tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I"));
+
+		// debug headers
+		String[] propertyNames = { "os.name", "os.version", "os.arch",
+				"java.version", "java.vendor", "java.vm.version",
+				"java.vm.vendor" };
+		Map<String, String> propertyMap = new HashMap<String, String>();
+		for (String propertyName : propertyNames) {
+			propertyMap.put(propertyName, System.getProperty(propertyName));
+		}
+		propertyMap.put("bindings.version", apiVersion);
+		propertyMap.put("lang", "Java");
+		propertyMap.put("publisher", "Stripe");
+		headers.put("X-Stripe-Client-User-Agent", GSON.toJson(propertyMap));
+		if (apiVersion != null) {
+			headers.put("Stripe-Version", apiVersion);
+		}
+		/*if (options.getIdempotencyKey() != null) {
+			headers.put("Idempotency-Key", options.getIdempotencyKey());
+		}
+		if (options.getStripeAccount() != null) {
+			headers.put("Stripe-Account", options.getStripeAccount());
+		}*/
+		
+		options.setHeaders(headers);
+		
+		String url = "https://api.stripe.com/v1/account";
+		
+		String response = null;
+		List<PaymentResponse> paymentList = null;
+		try {
+			
+			response = ConnectionUtil.request(ConnectionUtil.RequestMethod.GET, url, options);
+			
+			System.out.println("Response: "+response);
+			
+			
+		   /* Type stringStringMap = new TypeToken<List<PaymentResponse>>() {}.getType();
+		    paymentList = GSON.fromJson(response, stringStringMap);*/
+			
+		} catch (APIConnectionException | AuthenticationException
+				| InvalidRequestException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 
 }
