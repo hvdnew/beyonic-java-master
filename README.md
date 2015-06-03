@@ -1,5 +1,4 @@
-<snippet>
-  <content><![CDATA[
+
 # Beyonic-Java-Master
 
 This is a Java client for Beyonic API. (Link)
