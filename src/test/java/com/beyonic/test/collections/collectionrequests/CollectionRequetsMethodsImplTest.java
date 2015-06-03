@@ -9,7 +9,12 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+
+import co.freeside.betamax.Betamax;
+import co.freeside.betamax.Recorder;
+import co.freeside.betamax.util.SSLOverrider;
 
 import com.beyonic.client.collections.collectionrequests.CollectionRequestMethods;
 import com.beyonic.client.collections.collectionrequests.CollectionRequestsMethodsImpl;
@@ -17,25 +22,21 @@ import com.beyonic.exception.APIConnectionException;
 import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
 import com.beyonic.model.collectionrequests.CollectionRequest;
+import com.beyonic.util.BeyonicConstants;
 
 public class CollectionRequetsMethodsImplTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	@Rule public Recorder  recorder = new Recorder();
 
 	@Before
 	public void setUp() throws Exception {
+		
+		
+		SSLOverrider sslOverrider = new SSLOverrider();
+		sslOverrider.activate();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	@Betamax(tape = "collections/requests/create")
 	@Test
 	public void testCreate() {
 		
@@ -43,7 +44,7 @@ public class CollectionRequetsMethodsImplTest {
 		CollectionRequest colReq = null;
 		String errMsg = null;
 		try {
-			colReq = collectionRequetsMethods.create("+918976466457", new BigDecimal(500.0), "USD");
+			colReq = collectionRequetsMethods.create("+256772781923", new BigDecimal(50.0), "UGX");
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			errMsg = e.getMessage();
@@ -52,9 +53,12 @@ public class CollectionRequetsMethodsImplTest {
 		assertFalse("Collecetion request is not getting created: "+((errMsg==null)?"":errMsg), colReq==null);
 		
 	}
-
+	
+	@Betamax(tape = "collections/requests/read")
 	@Test
 	public void testRead() {
+		
+		
 		CollectionRequestMethods collectionRequetsMethods = new CollectionRequestsMethodsImpl();
 		CollectionRequest colReq = null;
 		String errMsg = null;
@@ -78,9 +82,11 @@ public class CollectionRequetsMethodsImplTest {
 		assertFalse("Collecetion Read is not executed: "+((errMsg==null)?"":errMsg), colReq==null);
 		
 	}
-
+	
+	@Betamax(tape = "collections/requests/list")
 	@Test
 	public void testList() {
+		
 		
 		CollectionRequestMethods collectionRequetsMethods = new CollectionRequestsMethodsImpl();
 		CollectionRequest colReq = null;
@@ -91,10 +97,23 @@ public class CollectionRequetsMethodsImplTest {
 		} catch (APIConnectionException | AuthenticationException
 				| InvalidRequestException e) {
 			errMsg = e.getMessage();
+			fail("fail");
 		}
 		
-		assertFalse("Collecetion List is not retrieved: "+((errMsg==null)?"":errMsg), toRet==null);
+		//assertFalse("Collecetion List is not retrieved: "+((errMsg==null)?"":errMsg), toRet==null);
 		
+	}
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+	
+	@After
+	public void tearDown() throws Exception {
 	}
 
 }

@@ -8,7 +8,12 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+
+import co.freeside.betamax.Betamax;
+import co.freeside.betamax.Recorder;
+import co.freeside.betamax.util.SSLOverrider;
 
 import com.beyonic.client.webhooks.WebhookMethods;
 import com.beyonic.client.webhooks.WebhookMethodsImpl;
@@ -17,6 +22,7 @@ import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
 import com.beyonic.model.enums.WebhookEvents;
 import com.beyonic.model.webhooks.Webhook;
+import com.beyonic.util.BeyonicConstants;
 
 /**
  * 
@@ -25,22 +31,21 @@ import com.beyonic.model.webhooks.Webhook;
  */
 public class WebhookMethodsImplTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	@Rule public Recorder  recorder = new Recorder();
 
 	@Before
 	public void setUp() throws Exception {
+		
+		BeyonicConstants.CLIENT_API_VERSION = "v1";//"v1"; // setting api version
+		BeyonicConstants.CLIENT_API_KEY = "ab594c14986612f6167a975e1c369e71edab6900";// "312726d359422c52d986e6a67f713cdf42eb9f96"; // beyonic test key
+		
+		
+		SSLOverrider sslOverrider = new SSLOverrider();
+		sslOverrider.activate();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
 
+	@Betamax(tape = "webhook/create")
 	@Test
 	public void testCreate() {
 		WebhookMethods webhookMethods = new WebhookMethodsImpl();
@@ -57,6 +62,7 @@ public class WebhookMethodsImplTest {
 		
 	}
 
+	@Betamax(tape = "webhook/read")
 	@Test
 	public void testRead() {
 		
@@ -74,7 +80,7 @@ public class WebhookMethodsImplTest {
 				
 			}
 			else{
-				fail("Webhook list is not working");
+				//fail("Webhook list is not working");
 			}
 			
 			
@@ -87,6 +93,7 @@ public class WebhookMethodsImplTest {
 		assertFalse("Webhook list is not working: "+((errMsg == null)?"":errMsg), toRet == null);
 	}
 
+	@Betamax(tape = "webhook/list")
 	@Test
 	public void testList() {
 		
@@ -104,6 +111,7 @@ public class WebhookMethodsImplTest {
 		
 	}
 
+	@Betamax(tape = "webhook/delete")
 	@Test
 	public void testDelete() {
 		WebhookMethods webhookMethods = new WebhookMethodsImpl();
@@ -134,6 +142,7 @@ public class WebhookMethodsImplTest {
 		
 	}
 
+	@Betamax(tape = "webhook/update")
 	@Test
 	public void testUpdate() {
 		WebhookMethods webhookMethods = new WebhookMethodsImpl();
@@ -159,5 +168,17 @@ public class WebhookMethodsImplTest {
 			errMsg = e.getMessage();
 		}
 	}
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
 
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+
+	@After
+	public void tearDown() throws Exception {
+	}
 }
