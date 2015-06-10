@@ -17,14 +17,14 @@ jUnit test cases are implemented under beyonic-java-master/src/test/java/com/bey
 
 ##### Test execution
 Test Suite :  beyonic-java-master/src/test/java/com/beyonic/test/BeyonicTest.java
-1. Set API version and key in public static void setUp().
-2. Specify test classes in @SuiteClasses (eg - src/test/java/com/beyonic/test/payment/PaymentsMethodsImplTest.java)
-3. Run as jUnit test.
-4. this will record test request and response as YAML file using Betamax API under (src/test/resources/betamax/tapes/)
-5. Whenever you want new tapes, delete existing and run the tests again.
+- Set API version and key in public static void setUp().
+- Specify test classes in @SuiteClasses (eg - src/test/java/com/beyonic/test/payment/PaymentsMethodsImplTest.java)
+- Run as jUnit test.
+- this will record test request and response as YAML file using Betamax API under (src/test/resources/betamax/tapes/)
+- Whenever you want new tapes, delete existing and run the tests again.
 
 
 ##### API Mocking
 For mocks Betamax API is used.
-All recorded API interactions tapes located on src/test/resources/betamax/tapes/ folder.
-They can be deleted, in this case on next tests run specs will access to real API and cassettes will be recorded again.
+- All recorded API interactions tapes located on src/test/resources/betamax/tapes/ folder.
+- They can be deleted, in this case on next tests run specs will access to real API and cassettes will be recorded again.
