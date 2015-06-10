@@ -1,4 +1,4 @@
-# Beyonic Python Library
+# Beyonic Java Liberary
 
 ##### Installing dependencies
 Please run following command:
@@ -13,18 +13,18 @@ To create new api model you should perform below mentioned steps:
 
 
 #### Testing:
+jUnit test cases are implemented under beyonic-java-master/src/test/java/com/beyonic/test/
 
 ##### Test execution
+Test Suite :  beyonic-java-master/src/test/java/com/beyonic/test/BeyonicTest.java
+1. Set API version and key in public static void setUp().
+2. Specify test classes in @SuiteClasses (eg - src/test/java/com/beyonic/test/payment/PaymentsMethodsImplTest.java)
+3. Run as jUnit test.
+4. this will record test request and response as YAML file using Betamax API under (src/test/resources/betamax/tapes/)
+5. Whenever you want new tapes, delete existing and run the tests again.
 
-
-```sh
-$ nosetests --with-coverage  --cover-html --cover-package=beyonic
-...............................................................................
-```
-
-You can get detailed coverage report at cover/index.html, after tests has been ran.
 
 ##### API Mocking
-For mocks [vcrpy](https://github.com/kevin1024/vcrpy) is used.
-All recorded API interactions cassettes located on vcr_cassettes/ folder.
+For mocks Betamax API is used.
+All recorded API interactions tapes located on src/test/resources/betamax/tapes/ folder.
 They can be deleted, in this case on next tests run specs will access to real API and cassettes will be recorded again.
