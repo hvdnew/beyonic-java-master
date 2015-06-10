@@ -5,22 +5,22 @@ This is a Java client for Beyonic API. (Link)
 
 ## Installation
 
-TODO: Describe the installation process
+Given under Development.MD
 
 ## Usage
 
-TODO: Write usage instructions
+Given under Development.MD
 
 ## Contributing
 
 
 ## History
 
-TODO: Write history
+N/A
 
 ## Credits
 
-TODO: Write credits
+N/A
 
 ## License
 
