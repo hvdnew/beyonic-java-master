@@ -1,16 +1,16 @@
 # Beyonic Java Liberary
 
 ##### Installing dependencies
-Please run following command:
 ```
 import the project as maven project into eclipse all the depencies will be downloaded using POM.XML.
 ```
 
 ##### Adding new api model
 To create new api model you should perform below mentioned steps:
-- Create a file under beyonic/apis folder containing a class for newly added model. See other file there for your reference.
-- add import statement in ```beyonic/__init__.py``` file. E.g. ```from beyonic.apis.collection import CollectionRequest```
-
+- Create a sample entity file under src/main/java/com/beyonic/model. See other file there for your reference.
+- add a client interface and implementation in respective package under  ```com.beyonic.client``` file. E.g. ```PaymentsMethodsImpl implements PaymentsMethods```
+- specify API end point in interface in any different.
+- call ```ConnectionUtil.request(ConnectionUtil.RequestMethod.GET, url, options);``` this will return response.
 
 #### Testing:
 jUnit test cases are implemented under beyonic-java-master/src/test/java/com/beyonic/test/
