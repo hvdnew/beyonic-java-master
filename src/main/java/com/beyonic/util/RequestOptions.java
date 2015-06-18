@@ -9,7 +9,7 @@ import java.util.Map;
  *
  */
 public class RequestOptions {
-	private Map<String,String> params;
+	private Map<String,Object> params;
 	private Map<String,String> headers;
 
 	/**
@@ -30,13 +30,13 @@ public class RequestOptions {
 		return options;
 	}
 
-	public Map<String, String> getParams() {
+	public Map<String, Object> getParams() {
 		if(params == null)
-			return new HashMap<String, String>();
+			return new HashMap<String, Object>();
 		return params;
 	}
 
-	public void setParams(Map<String, String> params) {
+	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}
 

@@ -1,0 +1,46 @@
+!tape
+name: payments/list
+interactions:
+- recorded: 2015-06-18T06:18:55.509Z
+  request:
+    method: GET
+    uri: https://app.beyonic.com/api/v1/payments
+    headers:
+      Accept: application/json
+      Accept-Charset: UTF-8
+      Authorization: Token ab594c14986612f6167a975e1c369e71edab6900
+      Beyonic-Version: v1
+      Cache-Control: no-cache
+      Connection: keep-alive
+      Host: app.beyonic.com
+      Pragma: no-cache
+      User-Agent: Java/1.8.0_05
+  response:
+    status: 200
+    headers:
+      Allow: GET, POST, HEAD, OPTIONS
+      Content-Language: en-us
+      Content-Type: application/json
+      Date: Thu, 18 Jun 2015 06:19:01 GMT
+      Server: nginx/1.6.2
+      Strict-Transport-Security: max-age=31536000; includeSubDomains, max-age=31536000; includeSubDomains
+      Vary: Accept, Accept-Language, Cookie
+      strict-transport-security: max-age=31536000; includeSubDomains, max-age=31536000; includeSubDomains
+      x-content-type-options: nosniff
+      x-frame-options: DENY
+      x-xss-protection: 1; mode=block
+    body: '[{"id": 5571, "organization": 4, "amount": "100.0000", "currency": "UGX", "payment_type": "money", "metadata": null, "description": "This is created using jUnit test case.", "phone_nos": ["+256772781923"], "state": "processed", "last_error": null,
+      "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-28T05:35:47Z", "author": 134, "modified": "2015-05-28T05:35:59Z", "updated_by": null, "start_date":
+      "2015-05-28T05:35:47Z"}, {"id": 5572, "organization": 4, "amount": "100.0000", "currency": "UGX", "payment_type": "money", "metadata": null, "description": "This is created using jUnit test case.", "phone_nos": ["+256772781923"], "state": "processed",
+      "last_error": null, "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-28T06:18:10Z", "author": 134, "modified": "2015-05-28T06:18:59Z", "updated_by":
+      null, "start_date": "2015-05-28T06:18:10Z"}, {"id": 5573, "organization": 4, "amount": "100.0000", "currency": "UGX", "payment_type": "money", "metadata": null, "description": "This is created using jUnit test case.", "phone_nos": ["+256772781923"], "state":
+      "processed", "last_error": null, "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-28T06:22:56Z", "author": 134, "modified": "2015-05-28T06:22:59Z",
+      "updated_by": null, "start_date": "2015-05-28T06:22:56Z"}, {"id": 5574, "organization": 4, "amount": "100.0000", "currency": "UGX", "payment_type": "money", "metadata": null, "description": "This is created using jUnit test case.", "phone_nos": ["+256772781923"],
+      "state": "processed", "last_error": null, "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-28T10:15:16Z", "author": 134, "modified": "2015-05-28T10:16:01Z",
+      "updated_by": null, "start_date": "2015-05-28T10:15:16Z"}, {"id": 5580, "organization": 4, "amount": "100.0000", "currency": "UGX", "payment_type": "money", "metadata": null, "description": "This is created using jUnit test case.", "phone_nos": ["+256772781923"],
+      "state": "processed", "last_error": null, "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-28T12:28:52Z", "author": 134, "modified": "2015-05-28T12:29:02Z",
+      "updated_by": null, "start_date": "2015-05-28T12:28:52Z"}, {"id": 5594, "organization": 4, "amount": "100.2000", "currency": "UGX", "payment_type": "money", "metadata": {"id": "1234", "name": "Lucy"}, "description": "Per diem payment", "phone_nos": ["+256773712831"],
+      "state": "processed", "last_error": null, "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-29T12:07:29Z", "author": 134, "modified": "2015-05-29T12:08:16Z",
+      "updated_by": null, "start_date": "2015-05-29T12:07:29Z"}, {"id": 5595, "organization": 4, "amount": "100.2000", "currency": "UGX", "payment_type": "money", "metadata": {"id": "1234", "name": "Lucy"}, "description": "Per diem payment", "phone_nos": ["+256773712831"],
+      "state": "processed", "last_error": null, "rejected_reason": null, "rejected_by": null, "rejected_time": null, "cancelled_reason": null, "cancelled_by": null, "cancelled_time": null, "created": "2015-05-29T12:07:56Z", "author": 134, "modified": "2015-05-29T12:08:17Z",
+      "updated_by": null, "start_date": "2015-05-29T12:07:56Z"}]'

@@ -10,26 +10,30 @@ import java.util.Map;
  */
 public class BeyonicConstants {
 
+	// Used
+	public static String CLIENT_API_VERSION;
+	public static final String CLIENT_API_DEFAULT_VERSION = "";
+	public static String CLIENT_API_KEY = null;//"312726d359422c52d986e6a67f713cdf42eb9f96";
+	public static boolean verifySSL = true;
+	
+
+	
+	
 	// not used, preserved for future
 	public static final String PROPERTIES_FILE_NAME = "beyonic.properties";
 	public static final String PROP_DIR = "beyonic";
 	public static final String USER_HOME = "user.home";
 	public static final String BASE_URL = "https://app.beyonic.com/api";//"https://staging.beyonic.com/api"; // once changed here, will be reflected everywhere
 	public static final String KEYSTORE_LOCATION = "C:/Users/Owner/.keystore";
+	public static final String KEYSTORE_SECRET = "changeit";
 	// not used, preserved for future
 	
-	// Used
-	public static String CLIENT_API_VERSION;
-	public static final String CLIENT_API_DEFAULT_VERSION = "";
-	public static String CLIENT_API_KEY = null;//"312726d359422c52d986e6a67f713cdf42eb9f96";
-	public static boolean verifySSL = true;
-	public static final String KEYSTORE_SECRET = "changeit";
-
+	
 	public static String getVersion(){
 		return (CLIENT_API_VERSION==null || CLIENT_API_VERSION.trim().length() == 0 )?""+CLIENT_API_DEFAULT_VERSION:"/"+CLIENT_API_VERSION;
 	}
 	
-	@SuppressWarnings("unused")
+	
 	public static void setEnvironment() {
 		System.setProperty("javax.net.ssl.trustStore", KEYSTORE_LOCATION);
 		System.setProperty("javax.net.ssl.trustStorePassword", KEYSTORE_SECRET);
@@ -40,12 +44,12 @@ public class BeyonicConstants {
 	 * @param object
 	 * @return HashMap of all the fields of any class
 	 */
-	public static Map<String, String> getAsParams(Object object) {
+	public static Map<String, Object> getAsParams(Object object) {
 
 		Class tClass = object.getClass();
 		Method gs1Method;
 
-		Map<String, String> paramMap = new HashMap<String, String>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 
 		try {
 

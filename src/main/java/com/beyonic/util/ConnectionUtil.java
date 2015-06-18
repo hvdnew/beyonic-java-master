@@ -215,10 +215,10 @@ public abstract class ConnectionUtil {
 	}
 
 	
-	private static String createQuery(Map<String, String> params)
+	private static String createQuery(Map<String, Object> params)
 			throws UnsupportedEncodingException, InvalidRequestException {
 		StringBuilder queryStringBuffer = new StringBuilder();
-		for (Map.Entry<String, String> entry : params.entrySet()) {
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
 			if (queryStringBuffer.length() > 0) {
 				queryStringBuffer.append("&");
 			}
@@ -391,18 +391,18 @@ public abstract class ConnectionUtil {
 		}
 	}
 
-	private static String urlEncode(String str) throws UnsupportedEncodingException {
+	private static String urlEncode(Object str) throws UnsupportedEncodingException {
 		// Preserve original behavior that passing null for an object id will lead
 		// to us actually making a request to /v1/foo/null
 		if (str == null) {
 			return null;
 		}
 		else {
-			return URLEncoder.encode(str, CHARSET);
+			return URLEncoder.encode(str.toString(), CHARSET);
 		}
 	}
 
-	private static String urlEncodePair(String k, String v)
+	private static String urlEncodePair(String k, Object v)
 			throws UnsupportedEncodingException {
 		return String.format("%s=%s", urlEncode(k), urlEncode(v));//urlEncode(v)
 	}
