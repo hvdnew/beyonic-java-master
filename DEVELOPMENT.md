@@ -89,7 +89,7 @@ For mocks Betamax API is used.
 
 =====
 
-StripeExample.java
+BeyonicImpl.java
 
 ```java
 import java.util.List;
