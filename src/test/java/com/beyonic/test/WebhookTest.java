@@ -12,7 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.beyonic.model.Webhook;
-import com.beyonic.model.enums.WebhookEvents;
 import com.beyonic.util.BeyonicConstants;
 
 import co.freeside.betamax.Betamax;
@@ -141,7 +140,7 @@ public class WebhookTest {
 			if(toRet != null && toRet.size() > 0){
 				
 				webhook = toRet.get(0);
-				webhook = Webhook.update(webhook.getId()+"", WebhookEvents.payment_status_changed, "https://www.harsh.com");
+				webhook = Webhook.update(webhook.getId()+"", "payment.status.changed", "https://www.harsh.com");
 				assertFalse("Webhook update is not working", webhook == null);
 			}
 			else{

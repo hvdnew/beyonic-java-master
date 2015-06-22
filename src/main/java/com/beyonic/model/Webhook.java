@@ -8,7 +8,6 @@ import java.util.Map;
 import com.beyonic.exception.APIConnectionException;
 import com.beyonic.exception.AuthenticationException;
 import com.beyonic.exception.InvalidRequestException;
-import com.beyonic.model.enums.WebhookEvents;
 import com.beyonic.util.BeyonicConstants;
 import com.beyonic.util.ConnectionUtil;
 import com.beyonic.util.RequestOptions;
@@ -30,7 +29,7 @@ public class Webhook {
 	private String created;
 	private String updated;
 	private String user;
-	private WebhookEvents event;
+	private String event;
 	private String target;
 	
 	
@@ -113,10 +112,10 @@ public class Webhook {
 	}
 
 	
-	public static Webhook update(String id, WebhookEvents event, String target) throws APIConnectionException, AuthenticationException, InvalidRequestException {
+	public static Webhook update(String id, String event, String target) throws APIConnectionException, AuthenticationException, InvalidRequestException {
 		
 		Map<String, Object> params	= new HashMap<String, Object>();
-		params.put("event", event.getEventType());
+		params.put("event", event);
 		params.put("target", target);
 		
 		RequestOptions options = RequestOptions.getDefault();
@@ -161,10 +160,10 @@ public class Webhook {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public WebhookEvents getEvent() {
+	public String getEvent() {
 		return event;
 	}
-	public void setEvent(WebhookEvents event) {
+	public void setEvent(String event) {
 		this.event = event;
 	}
 	public String getTarget() {
