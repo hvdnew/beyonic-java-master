@@ -13,10 +13,13 @@ import com.beyonic.util.BeyonicConstants;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({CollectionTest.class, CollectionRequestTest.class,
-				PaymentTest.class, WebhookTest.class})
+@SuiteClasses({WebhookTest.class})
 public class BeyonicTestSuite {
 
+	
+	/**
+	 * CollectionTest.class, CollectionRequestTest.class, PaymentTest.class, 
+	 */
 	/**
 	 * <p>This methods is called just before invoking the test suite.</p>
 	 */
